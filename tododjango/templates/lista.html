@@ -1,0 +1,41 @@
+{% extends 'model.html' %}
+{% load bootstrap %}
+{% block content %}
+
+    <h1 class="text-center">Task Administrator Django</h1>
+    <div class="container">
+        {% if user.is_authenticated %}
+        <form  action="" method="POST">{% csrf_token %}
+            {{form|bootstrap}}
+            <button class="btn btn-success btn-sm"  type="submit">Cadastrar</button>
+        
+    
+        </form>
+        {%endif%}
+
+        {% for info in conteudo %}
+        <br>
+
+        <div class="card">
+            <div class="card-header">
+                Task | {{info.data}}
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{info.conteudo}}</h5>
+              <p class="card-text">{{info.descricao}}</p>
+            </div>
+          </div>
+
+
+       {% if user.is_authenticated %}
+        <form  action="../task/delete/{{info.id}}" method="post"><br>{% csrf_token %}   
+            <button class="btn btn-danger btn-sm" type="submit">deletar</button>
+        </form>
+        {%endif%}
+        <hr>
+
+       {% endfor %}
+
+    </div>
+    
+{% endblock content %}
